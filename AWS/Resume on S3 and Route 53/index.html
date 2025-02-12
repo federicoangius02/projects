@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Vitae - Federico Angius</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .photo-box {
+            width: 120px;
+            height: 120px; /* Cambiato per farlo rotondo */
+            background-color: #e0e0e0;
+            border: 2px solid #ccc;
+            border-radius: 50%; /* Rende il riquadro della foto rotondo */
+            margin-right: 1rem;
+            background-size: cover;
+            background-position: center;
+            background-image: url('mars.jpg'); /* Aggiorna il percorso della foto */
+        }
+
+        header .title-box {
+            flex: 1;
+            text-align: left;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+            color: #003366;
+        }
+
+        header h2 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin: 0.5rem 0;
+            color: #666;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #003366;
+            margin-top: 2rem;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 0.5rem;
+        }
+
+        .info-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item strong {
+            font-weight: 700;
+            color: #003366;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        ul li a {
+            color: #003366;
+            text-decoration: none;
+        }
+
+        ul li a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Riduzione dimensioni dei sottotitoli nella sezione Technical Skills */
+        .technical-skill-subtitle {
+            font-size: 1.2rem; /* Più piccolo rispetto ai titoli principali */
+            font-weight: 600;
+            color: #003366;
+            margin-top: 1rem;
+        }
+
+        @media screen and (min-width: 768px) {
+            .info-row {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .info-row > div {
+                width: 48%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="photo-box">
+                <!-- Spazio per la foto -->
+            </div>
+            <div class="title-box">
+                <h1>Federico Angius</h1>
+                <h2>Curriculum Vitae</h2>
+            </div>
+        </header>
+
+        <!-- Personal Information -->
+        <section>
+            <h2 class="section-title">Personal Information</h2>
+            <p class="info-item"><strong>Full Name:</strong> Federico Angius</p>
+            <p class="info-item"><strong>Date of Birth:</strong> 8 June 2002</p>
+            <p class="info-item"><strong>Phone:</strong> <a href="tel:+393249560203">+39 324 956 0203</a></p>
+            <p class="info-item"><strong>Email:</strong> <a href="mailto:federico.angius2@gmail.com">federico.angius2@gmail.com</a></p>
+        </section>
+
+        <!-- Work Experience -->
+        <section>
+            <h2 class="section-title">Work Experience</h2>
+            <p>No prior work experience.</p>
+        </section>
+
+        <!-- Education -->
+        <section>
+            <h2 class="section-title">Education</h2>
+            <p class="info-item"><strong>Dates:</strong> 2016 - 2021</p>
+            <p class="info-item"><strong>Institution:</strong> Istituto di Istruzione Superiore "Giorgio Asproni" - "Enrico Fermi" Iglesias - CI</p>
+            <p class="info-item"><strong>Qualification:</strong> Diploma di Istituto Tecnico - Settore Tecnologico - Indirizzo "Informatica e Telecomunicazioni" - Articolazione "Informatica"</p>
+        </section>
+
+        <!-- Languages -->
+        <section>
+            <h2 class="section-title">Languages</h2>
+            <p><strong>Mother Tongue:</strong> Italian</p>
+            <p><strong>Other Languages:</strong> Intermediate-Advanced English (B2 Certification) - 
+                <a href="https://bestr.it/verify/KCVUHV80NP" target="_blank">Verify Certification</a>
+            </p>
+        </section>
+
+        <!-- Certifications -->
+        <section>
+            <h2 class="section-title">Certifications</h2>
+            <ul>
+                <li><a href="https://www.credly.com/badges/9d9bfc3f-4027-4f20-bc8b-03a96f50baf6" target="_blank">AWS Certified Cloud Practitioner</a></li>
+                <li><a href="https://www.credly.com/badges/e69dfef3-095e-4291-9e4b-1c8bcdae061c" target="_blank">AWS Certified Solutions Architect – Associate</a></li>
+                <li><a href="https://www.credly.com/badges/7067a381-e244-4f05-9a30-785fbdfbd830" target="_blank">AWS Certified Developer – Associate</a></li>
+                <li><a href="https://www.credly.com/badges/3d5364d8-44dc-484c-b557-4c6778226214" target="_blank">AWS Certified DevOps Engineer - Professional</a></li>
+            </ul>
+        </section>
+
+        <!-- Technical Skills -->
+        <section>
+            <h2 class="section-title">Technical Skills</h2>
+            <h3 class="technical-skill-subtitle">Cloud Computing & AWS</h3>
+            <ul>
+                <li>AWS Certified Cloud Practitioner</li>
+                <li>AWS Certified Solutions Architect – Associate</li>
+                <li>AWS Certified Developer – Associate</li>
+                <li>AWS Certified DevOps Engineer - Professional</li>
+            </ul>
+        </section>
+
+        <!-- Projects -->
+        <section>
+            <h2 class="section-title">Projects</h2>
+            <ul>
+                <li>
+                    <strong>Project Name:</strong> Personal Portfolio Website<br>
+                    <strong>Description:</strong> Developed a responsive personal portfolio website using HTML, CSS, and JavaScript.<br>
+                    <strong>Link:</strong> <a href="#" target="_blank">View Project</a>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Federico Angius</p>
+    </footer>
+</body>
+</html>
