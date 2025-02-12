@@ -1,0 +1,2 @@
+curl -X DELETE -H "Content-Type: application/json" \
+-d '{"id": "mars.jpg"}' https://68e0edkj43.execute-api.us-east-1.amazonaws.com/prod

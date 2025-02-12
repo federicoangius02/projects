@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Vitae</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #0078D7;
+            color: white;
+        }
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #0078D7;
+            margin-top: 2rem;
+            border-bottom: 3px solid #0078D7;
+            padding-bottom: 0.5rem;
+        }
+        .photo-box {
+            width: 150px;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background: url('https://via.placeholder.com/150x200') center/cover no-repeat;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+        .footer {
+            background-color: #0078D7;
+            color: white;
+        }
+        a {
+            color: #0078D7;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .icon {
+            margin-right: 8px;
+        }
+        .personal-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .badge-container {
+            display: flex;
+            gap: 10px;
+        }
+        .badge-container div {
+            position: relative;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header class="py-4">
+        <div class="container">
+            <h1 class="text-center">Curriculum Vitae</h1>
+        </div>
+    </header>
+
+    <main class="container mt-4">
+        <section>
+            <div class="photo-box bg-light"></div>
+            <h2 class="section-title">Personal Information</h2>
+            <div class="personal-info">
+                <p><strong>Name:</strong> Federico Angius</p>
+                <p><strong>Date of Birth:</strong> 8 June 2002</p>
+                <p><i class="icon bi bi-telephone"></i><strong>Phone:</strong> +39 324 956 0203</p>
+                <p><i class="icon bi bi-envelope"></i><strong>Email:</strong> <a href="mailto:federico.angius2@gmail.com">federico.angius2@gmail.com</a></p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Work Experience</h2>
+            <div>
+                <p>No prior work experience.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Education</h2>
+            <div>
+                <p><strong>Dates:</strong> 2016 - 2021</p>
+                <p><strong>Institution:</strong> Istituto di Istruzione Superiore "Giorgio Asproni" - "Enrico Fermi" Iglesias - CI</p>
+                <p><strong>Qualification:</strong> Diploma di Istituto Tecnico - Settore Tecnologico - Indirizzo "Informatica e Telecomunicazioni" - Articolazione "Informatica"</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Languages</h2>
+            <p><strong>Mother Tongue:</strong> Italian</p>
+            <p><strong>Other Languages:</strong> Intermediate-Advanced English (B2 certification) - 
+                <a href="https://bestr.it/verify/KCVUHV80NP" target="_blank">Verify Certification</a>
+            </p>
+        </section>
+
+        <section>
+            <h2 class="section-title">Technical Skills</h2>
+            <ul>
+                <li>AWS Certified Cloud Practitioner - Foundational 
+                    <div class="badge-container">
+                        <div data-bs-toggle="tooltip" data-bs-placement="top" title="AWS Certified Cloud Practitioner">
+                            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="9d9bfc3f-4027-4f20-bc8b-03a96f50baf6" data-share-badge-host="https://www.credly.com"></div>
+                            <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+                        </div>
+                    </div>
+                </li>
+                <li>AWS Certified Solutions Architect – Associate 
+                    <div class="badge-container">
+                        <div data-bs-toggle="tooltip" data-bs-placement="top" title="AWS Certified Solutions Architect – Associate">
+                            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="e69dfef3-095e-4291-9e4b-1c8bcdae061c" data-share-badge-host="https://www.credly.com"></div>
+                            <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+                        </div>
+                    </div>
+                </li>
+                <li>AWS Certified Developer - Associate 
+                    <div class="badge-container">
+                        <div data-bs-toggle="tooltip" data-bs-placement="top" title="AWS Certified Developer - Associate">
+                            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="7067a381-e244-4f05-9a30-785fbdfbd830" data-share-badge-host="https://www.credly.com"></div>
+                            <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+                        </div>
+                    </div>
+                </li>
+                <li>AWS Certified DevOps Engineer - Professional 
+                    <div class="badge-container">
+                        <div data-bs-toggle="tooltip" data-bs-placement="top" title="AWS Certified DevOps Engineer - Professional">
+                            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="3d5364d8-44dc-484c-b557-4c6778226214" data-share-badge-host="https://www.credly.com"></div>
+                            <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="section-title">Projects</h2>
+            <div class="card p-3">
+                <h3>Project Name</h3>
+                <p><strong>Description:</strong> Breve descrizione del progetto e degli obiettivi raggiunti.</p>
+                <p><strong>Technologies:</strong> AWS, Python, React</p>
+                <p><strong>Link:</strong> <a href="https://github.com/tuo_progetto" target="_blank">GitHub Repository</a></p>
+            </div>
+            <div class="card p-3">
+                <h3>Another Project</h3>
+                <p><strong>Description:</strong> Un altro progetto interessante su cui hai lavorato.</p>
+                <p><strong>Technologies:</strong> Docker, Kubernetes, Node.js</p>
+                <p><strong>Link:</strong> <a href="https://portfolio.tuodominio.com" target="_blank">Live Demo</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer py-3">
+        <div class="container text-center">
+            <span>&copy; 2024 Federico Angius. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Tooltip Activation -->
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+</body>
+</html>
