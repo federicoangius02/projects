@@ -1,10 +1,10 @@
 provider "aws" {
-  region = "eu-south-1"  # Regione di Milano
+  region = "eu-south-1" # Regione di Milano
 }
 
 # Bucket S3 per gli artefatti di build
 resource "aws_s3_bucket" "node_app_bucket" {
-  bucket = "my-node-app-bucket-eu-south-1"  # Nome univoco per il bucket
+  bucket = "my-node-app-bucket-eu-south-1" # Nome univoco per il bucket
 
   tags = {
     Name        = "My Node App Bucket"
@@ -81,9 +81,9 @@ resource "aws_iam_role_policy_attachment" "codebuild_policy_attachment" {
 
 # Progetto CodeBuild
 resource "aws_codebuild_project" "node_app_build" {
-  name          = "node-app-build"
-  description   = "Progetto CodeBuild per l'app Node.js"
-  service_role  = aws_iam_role.codebuild_role.arn
+  name         = "node-app-build"
+  description  = "Progetto CodeBuild per l'app Node.js"
+  service_role = aws_iam_role.codebuild_role.arn
 
   artifacts {
     type = "NO_ARTIFACTS"
@@ -93,16 +93,16 @@ resource "aws_codebuild_project" "node_app_build" {
     compute_type                = "BUILD_GENERAL1_SMALL"
     image                       = "aws/codebuild/standard:5.0"
     type                        = "LINUX_CONTAINER"
-    image_pull_credentials_type  = "CODEBUILD"
+    image_pull_credentials_type = "CODEBUILD"
   }
 
   source {
     type            = "GITHUB"
-    location        = "https://github.com/tuo-username/my-node-app.git"  # Sostituisci con il tuo repository
+    location        = "https://github.com/tuo-username/my-node-app.git" # Sostituisci con il tuo repository
     git_clone_depth = 1
   }
 
-  source_version = "main"  # Usa il branch principale
+  source_version = "main" # Usa il branch principale
 }
 
 # Ruolo IAM per CodePipeline
@@ -183,10 +183,11 @@ resource "aws_codepipeline" "node_app_pipeline" {
       output_artifacts = ["source_output"]
 
       configuration = {
-        Owner      = "tuo-username"  # Sostituisci con il tuo username GitHub
-        Repo       = "my-node-app"   # Sostituisci con il nome del repository
-        Branch     = "main"          # Usa il branch principale
-        OAuthToken = var.github_token  # Token OAuth di GitHub (da configurare come variabile)
+        Owner      = "tuo-username"
+        Repo       = "my-node-app"
+        Branch     = "main"
+        OAuthToken = var.github_token
+        Path       = "My Node App" # Estrai solo la cartella My Node App
       }
     }
   }
