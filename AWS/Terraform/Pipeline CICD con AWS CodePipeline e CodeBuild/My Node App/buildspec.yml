@@ -3,13 +3,15 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 16  # Usa Node.js 16 (o una versione supportata)
+      nodejs: 16
     commands:
+      - cd "My Node App"
       - npm install
   build:
     commands:
+      - cd "My Node App"
       - npm run build
 artifacts:
   files:
-    - '**/*'
+    - 'My Node App/**/*'
   discard-paths: yes
