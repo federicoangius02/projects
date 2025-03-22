@@ -162,3 +162,63 @@ resource "aws_lb_listener" "http" {
     target_group_arn = aws_lb_target_group.app_tg.arn
   }
 }
+
+resource "aws_vpc_endpoint" "s3_vpc_endpoint" {
+  vpc_id       = aws_vpc.main.id
+  service_name = "com.amazonaws.${var.region}.s3"
+  route_table_ids = [aws_route_table.private_rt.id]
+
+  tags = {
+    Name = "s3-vpc-endpoint"
+  }
+}
+
+resource "aws_vpc_endpoint" "dynamodb_vpc_endpoint" {
+  vpc_id       = aws_vpc.main.id
+  service_name = "com.amazonaws.${var.region}.dynamodb"
+  route_table_ids = [aws_route_table.private_rt.id]
+
+  tags = {
+    Name = "dynamodb-vpc-endpoint"
+  }
+}
+
+resource "aws_vpc_endpoint" "ec2_messages_vpc_endpoint" {
+  vpc_id       = aws_vpc.main.id
+  service_name = "com.amazonaws.${var.region}.ec2messages"
+  route_table_ids = [aws_route_table.private_rt.id]
+
+  tags = {
+    Name = "ec2-messages-vpc-endpoint"
+  }
+}
+
+resource "aws_vpc_endpoint" "ecr_vpc_endpoint" {
+  vpc_id       = aws_vpc.main.id
+  service_name = "com.amazonaws.${var.region}.ecr.dkr"
+  route_table_ids = [aws_route_table.private_rt.id]
+
+  tags = {
+    Name = "ecr-vpc-endpoint"
+  }
+}
+
+resource "aws_vpc_endpoint" "ecr_api_vpc_endpoint" {
+  vpc_id       = aws_vpc.main.id
+  service_name = "com.amazonaws.${var.region}.ecr.api"
+  route_table_ids = [aws_route_table.private_rt.id]
+
+  tags = {
+    Name = "ecr-api-vpc-endpoint"
+  }
+}
+
+resource "aws_vpc_endpoint" "ssm_vpc_endpoint" {
+  vpc_id       = aws_vpc.main.id
+  service_name = "com.amazonaws.${var.region}.ssm"
+  route_table_ids = [aws_route_table.private_rt.id]
+
+  tags = {
+    Name = "ssm-vpc-endpoint"
+  }
+}
