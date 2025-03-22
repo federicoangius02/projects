@@ -222,3 +222,31 @@ resource "aws_vpc_endpoint" "ssm_vpc_endpoint" {
     Name = "ssm-vpc-endpoint"
   }
 }
+
+resource "aws_security_group" "ecs_sg" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "ecs-security-group"
+  }
+}
+
+# Regola di ingresso: consente il traffico solo dall'ALB
+resource "aws_security_group_rule" "ecs_sg_ingress" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  security_group_id = aws_security_group.ecs_sg.id
+  source_security_group_id = aws_security_group.alb_sg.id  # Consente traffico solo dall'ALB
+}
+
+# Regola di uscita: consente tutto il traffico in uscita
+resource "aws_security_group_rule" "ecs_sg_egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ecs_sg.id
+}

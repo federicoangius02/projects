@@ -48,14 +48,14 @@ resource "aws_ecs_task_definition" "app" {
 resource "aws_ecs_service" "app" {
   name            = "my-app-service"
   cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.app.arn
+  task_definition = aws_ecs_task_definition.app_tg.arn
   launch_type     = "FARGATE"
-  desired_count   = 2 # Numero di container attivi
+  desired_count   = 2
 
   network_configuration {
-    subnets          = aws_subnet.private_subnet[*].id # Usa le subnet private
-    security_groups  = [aws_security_group.ecs_sg.id]
-    assign_public_ip = false # Non serve un IP pubblico
+    subnets          = aws_subnet.private_subnet[*].id
+    security_groups  = [aws_security_group.ecs_sg.id]  # Usa il security group per ECS
+    assign_public_ip = false
   }
 
   load_balancer {
@@ -97,10 +97,28 @@ resource "aws_iam_role_policy_attachment" "ecr_read_only_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
+resource "aws_iam_role" "ecs_task_role" {
+  name = "ecs_task_role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "ecs-tasks.amazonaws.com"
+        }
+      }
+    ]
+  })
+  
+}
+
 # Policy personalizzata per S3, DynamoDB, SSM, ecc.
-resource "aws_iam_policy" "ecs_policy" {
-  name        = "ecsPolicy"
-  description = "Policy for ECS tasks"
+resource "aws_iam_policy" "ecs_task_policy" {
+  name        = "ecsTaskPolicy"
+  description = "Policy for ECS task role"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -135,23 +153,13 @@ resource "aws_iam_policy" "ecs_policy" {
         Resource = [
           "arn:aws:ssm:${var.region}:${data.aws_caller_identity.current.account_id}:parameter/${var.ssm_parameter_name}"
         ]
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ]
-        Resource = [
-          "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:${var.ecs_log_group}:*"
-        ]
       }
     ]
   })
 }
 
 # Associa la policy personalizzata al ruolo ECS
-resource "aws_iam_role_policy_attachment" "ecs_policy_attachment" {
-  role       = aws_iam_role.ecs_execution_role.name
-  policy_arn = aws_iam_policy.ecs_policy.arn
+resource "aws_iam_role_policy_attachment" "ecs_task_policy_attachment" {
+  role       = aws_iam_role.ecs_task_role.name
+  policy_arn = aws_iam_policy.ecs_task_policy.arn
 }
