@@ -11,21 +11,50 @@ resource "aws_ecs_cluster" "main" {
   }
 }
 
+resource "aws_launch_template" "ecs_launch_template" {
+  name_prefix   = "ecs-launch-template-"
+  image_id      = "ami-0eb2fa98c69f993b4"  # AMI ottimizzata per ECS in eu-south-1
+  instance_type = "t3.micro"               # Istanza gratuita nel Free Tier
+
+  iam_instance_profile {
+    name = aws_iam_instance_profile.ecs_instance_profile.name
+  }
+
+  network_interfaces {
+    associate_public_ip_address = false  # Non assegnare un IP pubblico
+    security_groups             = [aws_security_group.ecs_sg.id]
+  }
+
+  user_data = base64encode(<<-EOF
+              #!/bin/bash
+              echo ECS_CLUSTER=${aws_ecs_cluster.main.name} >> /etc/ecs/ecs.config
+              EOF
+  )
+
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = {
+      Name = "ecs-instance"
+    }
+  }
+}
+
 resource "aws_ecs_task_definition" "app" {
   family                   = "my-app"
-  network_mode             = "awsvpc"    # Usa AWSVPC per Fargate
-  requires_compatibilities = ["FARGATE"] # Modalità serverless
+  network_mode             = "bridge"
+  requires_compatibilities = ["EC2"]
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
   task_role_arn            = aws_iam_role.ecs_task_role.arn
   cpu                      = "512"  # 0.5 vCPU
-  memory                   = "1024" # 1GB RAM
+  memory                   = "512"  # 0.5 GB di RAM
 
   container_definitions = jsonencode([
     {
       name      = "my-app"
-      image     = "123456789012.dkr.ecr.eu-west-1.amazonaws.com/my-app:latest" # Sostituisci con il tuo ECR repo
+      image     = "864899833939.dkr.ecr.eu-south-1.amazonaws.com/applicazione-web-scalabile:latest"
       cpu       = 512
-      memory    = 1024
+      memory    = 512
       essential = true
       portMappings = [
         {
@@ -37,7 +66,7 @@ resource "aws_ecs_task_definition" "app" {
         logDriver = "awslogs"
         options = {
           "awslogs-group"         = "/ecs/my-app"
-          "awslogs-region"        = "eu-west-1"
+          "awslogs-region"        = var.region
           "awslogs-stream-prefix" = "ecs"
         }
       }
@@ -49,13 +78,12 @@ resource "aws_ecs_service" "app" {
   name            = "my-app-service"
   cluster         = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.app.arn
-  launch_type     = "FARGATE"
-  desired_count   = 2 # Numero di container attivi
+  launch_type     = "EC2"  # Usa EC2 invece di FARGATE
+  desired_count   = 1  # Numero di task attivi
 
   network_configuration {
-    subnets          = aws_subnet.private_subnet[*].id # Usa le subnet private
+    subnets          = aws_subnet.private_subnet[*].id  # Usa tutte le subnet private
     security_groups  = [aws_security_group.ecs_sg.id]
-    assign_public_ip = false # Non serve un IP pubblico
   }
 
   load_balancer {
@@ -63,6 +91,8 @@ resource "aws_ecs_service" "app" {
     container_name   = "my-app"
     container_port   = 80
   }
+
+  depends_on = [aws_lb_listener.http]  # Assicurati che l'ALB sia pronto
 
   tags = {
     Name = "ecs-service"
@@ -143,7 +173,7 @@ resource "aws_iam_policy" "ecs_task_policy" {
         Resource = [
           aws_dynamodb_table.dynamodb_table.arn
         ]
-      },
+      }/*,
       {
         Effect = "Allow"
         Action = [
@@ -153,7 +183,7 @@ resource "aws_iam_policy" "ecs_task_policy" {
         Resource = [
           "arn:aws:ssm:${var.region}:${data.aws_caller_identity.current.account_id}:parameter/${var.ssm_parameter_name}"
         ]
-      }
+      }*/
     ]
   })
 }

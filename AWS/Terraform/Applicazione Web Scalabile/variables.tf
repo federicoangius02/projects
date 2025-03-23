@@ -15,3 +15,9 @@ variable "private_subnet_cidrs" {
 variable "availability_zones" {
   default = ["eu-south-1a", "eu-south-1b"]
 }
+
+/*variable "ssm_parameter_name" {
+  description = "Nome del parametro SSM"
+  type        = string
+  default     = "my-parameter-name"  # Sostituisci con il nome del parametro SSM
+}*/
