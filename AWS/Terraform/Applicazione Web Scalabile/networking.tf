@@ -250,3 +250,31 @@ resource "aws_security_group_rule" "ecs_sg_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ecs_sg.id
 }
+
+resource "aws_autoscaling_group" "ecs_asg" {
+  name_prefix          = "ecs-asg-"
+  vpc_zone_identifier  = aws_subnet.private_subnet[*].id  # Usa tutte le subnet private
+  min_size             = 1  # Numero minimo di istanze
+  max_size             = 2  # Numero massimo di istanze
+  desired_capacity     = 1  # Capacità desiderata iniziale
+
+  launch_template {
+    id      = aws_launch_template.ecs_launch_template.id
+    version = "$Latest"
+  }
+
+  tag {
+    key                 = "Name"
+    value               = "ecs-instance"
+    propagate_at_launch = true
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_autoscaling_attachment" "ecs_asg_attachment" {
+  autoscaling_group_name = aws_autoscaling_group.ecs_asg.name
+  lb_target_group_arn    = aws_lb_target_group.app_tg.arn
+}
