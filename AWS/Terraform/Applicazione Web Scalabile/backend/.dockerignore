@@ -1,0 +1,14 @@
+# Esclude la directory node_modules
+node_modules
+
+# Esclude i file di log di npm
+npm-debug.log
+
+# Esclude i file di sistema (macOS)
+.DS_Store
+
+# Esclude la directory .git
+.git
+
+# Esclude i file di ambiente locali
+.env
