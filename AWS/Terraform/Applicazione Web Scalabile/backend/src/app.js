@@ -1,20 +1,55 @@
-require('dotenv').config();  // Carica le variabili d'ambiente dal file .env
-
 const express = require('express');
-const routes = require('./routes');
+const cors = require('cors');
+const winston = require('winston');
+
+// Configurazione logger
+const logger = winston.createLogger({
+  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  transports: [new winston.transports.Console()]
+});
+
+// Carica .env solo in sviluppo
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+  logger.info('Running in development mode');
+}
 
 const app = express();
-const PORT = process.env.PORT || 3000;  // Usa la porta definita in .env o 3000 come fallback
-
-// Middleware per il parsing del JSON
+app.use(cors({
+  origin: process.env.FRONTEND_URL || '*'
+}));
 app.use(express.json());
 
-// Route
-app.use('/', routes);
+// Verifica variabili d'ambiente critiche
+const requiredEnvVars = ['S3_BUCKET_NAME', 'DYNAMODB_TABLE_NAME', 'AWS_REGION'];
+requiredEnvVars.forEach(envVar => {
+  if (!process.env[envVar]) {
+    logger.error(`Missing required environment variable: ${envVar}`);
+    process.exit(1);
+  }
+});
 
-// Avvia il server con gestione degli errori
+// Routes
+app.use('/', require('./routes'));
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK',
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server in ascolto sulla porta ${PORT}`);
-}).on('error', (err) => {
-  console.error('Errore durante l\'avvio del server:', err);
+  logger.info(`Server running on port ${PORT}`);
+  logger.debug('Configuration:', {
+    bucket: process.env.S3_BUCKET_NAME,
+    table: process.env.DYNAMODB_TABLE_NAME,
+    region: process.env.AWS_REGION
+  });
 });

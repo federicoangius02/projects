@@ -1,14 +1,12 @@
 const express = require('express');
-const healthController = require('../controllers/health');  // Importa il controller
+const fileController = require('../controllers/file');
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
 
 const router = express.Router();
 
-// Route per la radice (/)
-router.get('/', (req, res) => {
-  res.send('Benvenuto alla mia applicazione!');
-});
-
-// Health check route
-router.get('/health', healthController.getHealth);  // Usa il controller per /health
+router.post('/upload', upload.single('file'), fileController.uploadFile);
+router.get('/files', fileController.listFiles);
+router.get('/health', (req, res) => res.status(200).json({ status: 'OK' }));
 
 module.exports = router;

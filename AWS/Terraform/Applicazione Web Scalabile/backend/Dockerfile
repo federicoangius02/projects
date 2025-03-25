@@ -1,16 +1,14 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
-# Copia i file delle dipendenze e installa
+# 1. Installa solo le dipendenze necessarie
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --only=production
 
-# Copia il codice sorgente
-COPY src ./src
+# 2. Copia il codice sorgente
+COPY . .
 
-# Esponi la porta 3000
+# 3. Imposta la porta e avvia
 EXPOSE 3000
-
-# Avvia l'applicazione
 CMD ["npm", "start"]
