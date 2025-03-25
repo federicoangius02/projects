@@ -12,3 +12,5 @@ npm-debug.log
 
 # Esclude i file di ambiente locali
 .env
+
+test
