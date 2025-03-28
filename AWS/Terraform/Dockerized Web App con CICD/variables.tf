@@ -27,3 +27,11 @@ variable "ami" {
   type        = string
   default     = "ami-071226ecf16aa7d96"
 }
+
+variable "ecr_repository" {
+  default = "my-web-app"
+}
+
+variable "ecr_registry" {
+  default = "864899833939.dkr.ecr.eu-south-1.amazonaws.com"
+}
