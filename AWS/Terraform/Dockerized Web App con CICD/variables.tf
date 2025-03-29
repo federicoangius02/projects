@@ -9,7 +9,7 @@ variable "public_subnet_cidrs" {
 
 variable "private_subnet_cidrs" {
   default = ["10.0.3.0/24", "10.0.4.0/24"]
-  
+
 }
 
 variable "availability_zones" {
@@ -19,13 +19,13 @@ variable "availability_zones" {
 variable "key_name" {
   description = "Il nome della Key Pair SSH da utilizzare per accedere all'istanza"
   type        = string
-  default     = "KeyPair"
+  default     = "MyKeyPair"
 }
 
 variable "ami" {
   description = "L'AMI da utilizzare per l'istanza"
   type        = string
-  default     = "ami-071226ecf16aa7d96"
+  default     = "ami-00e75c3cfa05fd424"
 }
 
 variable "ecr_repository" {
