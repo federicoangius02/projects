@@ -35,3 +35,18 @@ variable "ecr_repository" {
 variable "ecr_registry" {
   default = "864899833939.dkr.ecr.eu-south-1.amazonaws.com"
 }
+
+variable "github_token" {
+  description = "GitHub personal access token"
+  type        = string
+}
+
+variable "github_owner" {
+  description = "GitHub username or organization"
+  type        = string
+}
+
+variable "github_repo" {
+  description = "GitHub repository name"
+  type        = string
+}

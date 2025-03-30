@@ -9,30 +9,43 @@ resource "aws_instance" "web-app-instance" {
 
   # Script di User Data per configurare l'istanza al primo avvio
   user_data = <<-EOF
-              #!/bin/bash
-              # Installazioni base
-              yum update -y
-              amazon-linux-extras install docker -y
+#!/bin/bash
+# Script di bootstrap per l'istanza EC2
 
-              # Installazione AWS CLI v2
-              curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-              unzip awscliv2.zip
-              ./aws/install
+# --- Configurazione base ---
+yum update -y
+amazon-linux-extras install docker -y
+yum install -y git
 
-              # Configurazione Docker
-              systemctl start docker
-              usermod -aG docker ec2-user
+# --- Installazione AWS CLI v2 ---
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+./aws/install
 
-              # Login a ECR
-              aws ecr get-login-password --region eu-south-1 | \
-                docker login --username AWS --password-stdin 864899833939.dkr.ecr.eu-south-1.amazonaws.com
+# --- Configurazione Docker ---
+systemctl start docker
+systemctl enable docker
+usermod -aG docker ec2-user
 
-              # Avvio container
-              docker run -d \
-                -p 3000:3000 \
-                --restart unless-stopped \
-                864899833939.dkr.ecr.eu-south-1.amazonaws.com/my-web-app:latest
-              EOF
+# --- Login a ECR ---
+aws ecr get-login-password --region ${var.region} | \
+  docker login --username AWS --password-stdin ${var.ecr_registry}
+
+# --- Pull e run dell'immagine ---
+docker pull ${var.ecr_registry}/${var.ecr_repository}:latest
+
+# --- Cleanup di eventuali container precedenti ---
+docker stop web-app || true
+docker rm web-app || true
+
+# --- Run del nuovo container ---
+docker run -d \
+  --name web-app \
+  --restart unless-stopped \
+  -p 3000:3000 \
+  -e NODE_ENV=production \
+  ${var.ecr_registry}/${var.ecr_repository}:latest
+EOF
 
   tags = {
     Name = "web-app-instance"
