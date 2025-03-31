@@ -39,6 +39,7 @@ variable "ecr_registry" {
 variable "github_token" {
   description = "GitHub personal access token"
   type        = string
+  sensitive = true
 }
 
 variable "github_owner" {
@@ -49,4 +50,10 @@ variable "github_owner" {
 variable "github_repo" {
   description = "GitHub repository name"
   type        = string
+}
+
+variable "github_branch" {
+  description = "GitHub branch name"
+  type        = string
+  default     = "main"
 }

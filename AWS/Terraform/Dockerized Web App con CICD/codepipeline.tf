@@ -1,65 +1,103 @@
+# CodeBuild Project
+resource "aws_codebuild_project" "web_app_build" {
+  name          = "web-app-build"
+  description   = "Build project for web application"
+  service_role  = aws_iam_role.codebuild_role.arn
+  build_timeout = "10"
+
+  artifacts {
+    type = "CODEPIPELINE"
+  }
+
+  environment {
+    compute_type                = "BUILD_GENERAL1_SMALL"
+    image                       = "aws/codebuild/amazonlinux2-x86_64-standard:4.0"
+    type                        = "LINUX_CONTAINER"
+    image_pull_credentials_type = "CODEBUILD"
+    privileged_mode             = true
+
+    environment_variable {
+      name  = "AWS_DEFAULT_REGION"
+      value = var.region
+    }
+    
+    environment_variable {
+      name  = "ECR_REGISTRY"
+      value = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com"
+    }
+
+    environment_variable {
+      name  = "ECR_REPOSITORY"
+      value = var.ecr_repository
+    }
+  }
+
+  source {
+    type      = "CODEPIPELINE"
+    buildspec = file("${path.module}/buildspec.yml")
+  }
+}
+
+# CodePipeline
 resource "aws_codepipeline" "web_app_pipeline" {
-    name     = "web-app-pipeline"
-    role_arn = aws_iam_role.codepipeline_role.arn
+  name     = "web-app-pipeline"
+  role_arn = aws_iam_role.codepipeline_role.arn
 
-    artifact_store {
-        type     = "S3"
-        location = aws_s3_bucket.codepipeline_bucket.bucket
+  artifact_store {
+    location = aws_s3_bucket.artifacts_bucket.bucket
+    type     = "S3"
+  }
+
+  stage {
+    name = "Source"
+
+    action {
+      name             = "Source"
+      category         = "Source"
+      owner            = "ThirdParty"
+      provider         = "GitHub"
+      version          = "1"
+      output_artifacts = ["source_output"]
+
+      configuration = {
+        Owner      = var.github_owner
+        Repo       = var.github_repo
+        Branch     = var.github_branch
+        OAuthToken = var.github_token
+      }
     }
+  }
 
-    stage {
-        name = "Source"
+  stage {
+    name = "Build"
 
-        action {
-            name             = "GitHub_Source"
-            category         = "Source"
-            owner            = "ThirdParty"
-            provider         = "GitHub"
-            version          = "1"
-            output_artifacts = ["source_output"]
+    action {
+      name             = "Build"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      input_artifacts  = ["source_output"]
+      output_artifacts = ["build_output"]
+      version          = "1"
 
-            configuration = {
-                Owner      = "your-github-username"
-                Repo       = "your-repo-name"
-                Branch     = "main"
-                OAuthToken = var.github_oauth_token
-            }
-        }
+      configuration = {
+        ProjectName = aws_codebuild_project.web_app_build.name
+      }
     }
+  }
+}
 
-    stage {
-        name = "Build"
-
-        action {
-            name             = "CodeBuild"
-            category         = "Build"
-            owner            = "AWS"
-            provider         = "CodeBuild"
-            version          = "1"
-            input_artifacts  = ["source_output"]
-            output_artifacts = ["build_output"]
-
-            configuration = {
-                ProjectName = aws_codebuild_project.web_app_build.name
-            }
-        }
+# Webhook
+resource "aws_codebuild_webhook" "webhook" {
+  project_name = aws_codebuild_project.web_app_build.name
+  filter_group {
+    filter {
+      type    = "EVENT"
+      pattern = "PUSH"
     }
-
-    stage {
-        name = "Deploy"
-
-        action {
-            name            = "Deploy"
-            category        = "Deploy"
-            owner           = "AWS"
-            provider        = "CodeDeploy"
-            version         = "1"
-            input_artifacts = ["build_output"]
-
-            configuration = {
-                ApplicationName = aws_codedeploy_app.web_app.name
-                DeploymentGroupName = aws_codedeploy_deployment_group.web_app_group.name
-            }
-        }
+    filter {
+      type    = "HEAD_REF"
+      pattern = var.github_branch
     }
+  }
 }
