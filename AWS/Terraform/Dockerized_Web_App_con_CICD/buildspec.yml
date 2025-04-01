@@ -15,19 +15,33 @@ phases:
       - docker build -t $ECR_REPOSITORY .
       - docker tag $ECR_REPOSITORY:latest $IMAGE_URI
       - docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
-      - cd ../../..  # Torna alla directory radice
 
   post_build:
     commands:
       - echo "Pushing Docker images..."
       - docker push $IMAGE_URI
       - docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+      
+      # Diagnostic commands
+      - echo "=== DIAGNOSTIC INFORMATION START ==="
+      - echo "Current directory: $(pwd)"
+      - echo "CODEBUILD_SRC_DIR: $CODEBUILD_SRC_DIR"
+      - echo "Directory contents:"
+      - ls -la $CODEBUILD_SRC_DIR
+      
+      # Create artifacts
       - echo "Creating image definitions..."
-      - mkdir -p build_artifacts
-      - printf '[{"name":"web-app","imageUri":"%s"}]' $ECR_REGISTRY/$ECR_REPOSITORY:latest > build_artifacts/imagedefinitions.json
-      - echo "Verifying file creation..."
-      - ls -la build_artifacts/
+      - mkdir -p $CODEBUILD_SRC_DIR/build_artifacts
+      - printf '[{"name":"web-app","imageUri":"%s"}]' $ECR_REGISTRY/$ECR_REPOSITORY:latest > $CODEBUILD_SRC_DIR/build_artifacts/imagedefinitions.json
+      
+      # Verify creation
+      - echo "Build artifacts contents:"
+      - ls -la $CODEBUILD_SRC_DIR/build_artifacts/
+      - echo "File content:"
+      - cat $CODEBUILD_SRC_DIR/build_artifacts/imagedefinitions.json
+      - echo "=== DIAGNOSTIC INFORMATION END ==="
 
 artifacts:
   files:
     - 'build_artifacts/imagedefinitions.json'
+  base-directory: $CODEBUILD_SRC_DIR

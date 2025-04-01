@@ -1,49 +1,49 @@
-[Container] 2025/04/01 22:33:23.546853 Running on CodeBuild On-demand
-[Container] 2025/04/01 22:33:23.546864 Waiting for agent ping
-[Container] 2025/04/01 22:33:23.848517 Waiting for DOWNLOAD_SOURCE
-[Container] 2025/04/01 22:33:25.685488 Phase is DOWNLOAD_SOURCE
-[Container] 2025/04/01 22:33:25.816276 CODEBUILD_SRC_DIR=/codebuild/output/src3217215697/src
-[Container] 2025/04/01 22:33:25.817220 YAML location is /codebuild/readonly/buildspec.yml
-[Container] 2025/04/01 22:33:25.820512 Setting HTTP client timeout to higher timeout for S3 source
-[Container] 2025/04/01 22:33:25.820850 Processing environment variables
-[Container] 2025/04/01 22:33:26.139056 No runtime version selected in buildspec.
-[Container] 2025/04/01 22:33:26.167216 Moving to directory /codebuild/output/src3217215697/src
-[Container] 2025/04/01 22:33:26.167240 Cache is not defined in the buildspec
-[Container] 2025/04/01 22:33:26.259839 Skip cache due to: no paths specified to be cached
-[Container] 2025/04/01 22:33:26.260167 Registering with agent
-[Container] 2025/04/01 22:33:26.351388 Phases found in YAML: 3
-[Container] 2025/04/01 22:33:26.351403  PRE_BUILD: 4 commands
-[Container] 2025/04/01 22:33:26.351408  BUILD: 5 commands
-[Container] 2025/04/01 22:33:26.351412  POST_BUILD: 8 commands
-[Container] 2025/04/01 22:33:26.351667 Phase complete: DOWNLOAD_SOURCE State: SUCCEEDED
-[Container] 2025/04/01 22:33:26.351679 Phase context status code:  Message: 
-[Container] 2025/04/01 22:33:26.489114 Entering phase INSTALL
-[Container] 2025/04/01 22:33:26.580112 Phase complete: INSTALL State: SUCCEEDED
-[Container] 2025/04/01 22:33:26.580131 Phase context status code:  Message: 
-[Container] 2025/04/01 22:33:26.626568 Entering phase PRE_BUILD
-[Container] 2025/04/01 22:33:26.717358 Running command echo "Logging in to Amazon ECR..."
+[Container] 2025/04/01 22:50:22.181979 Running on CodeBuild On-demand
+[Container] 2025/04/01 22:50:22.181993 Waiting for agent ping
+[Container] 2025/04/01 22:50:22.483823 Waiting for DOWNLOAD_SOURCE
+[Container] 2025/04/01 22:50:24.427000 Phase is DOWNLOAD_SOURCE
+[Container] 2025/04/01 22:50:24.557693 CODEBUILD_SRC_DIR=/codebuild/output/src2868465106/src
+[Container] 2025/04/01 22:50:24.558442 YAML location is /codebuild/readonly/buildspec.yml
+[Container] 2025/04/01 22:50:24.561018 Setting HTTP client timeout to higher timeout for S3 source
+[Container] 2025/04/01 22:50:24.561127 Processing environment variables
+[Container] 2025/04/01 22:50:24.837577 No runtime version selected in buildspec.
+[Container] 2025/04/01 22:50:24.867319 Moving to directory /codebuild/output/src2868465106/src
+[Container] 2025/04/01 22:50:24.867383 Cache is not defined in the buildspec
+[Container] 2025/04/01 22:50:24.963886 Skip cache due to: no paths specified to be cached
+[Container] 2025/04/01 22:50:24.964244 Registering with agent
+[Container] 2025/04/01 22:50:25.051235 Phases found in YAML: 3
+[Container] 2025/04/01 22:50:25.051260  PRE_BUILD: 4 commands
+[Container] 2025/04/01 22:50:25.051265  BUILD: 6 commands
+[Container] 2025/04/01 22:50:25.051270  POST_BUILD: 8 commands
+[Container] 2025/04/01 22:50:25.051666 Phase complete: DOWNLOAD_SOURCE State: SUCCEEDED
+[Container] 2025/04/01 22:50:25.051681 Phase context status code:  Message: 
+[Container] 2025/04/01 22:50:25.198766 Entering phase INSTALL
+[Container] 2025/04/01 22:50:25.299943 Phase complete: INSTALL State: SUCCEEDED
+[Container] 2025/04/01 22:50:25.299969 Phase context status code:  Message: 
+[Container] 2025/04/01 22:50:25.358622 Entering phase PRE_BUILD
+[Container] 2025/04/01 22:50:25.462504 Running command echo "Logging in to Amazon ECR..."
 Logging in to Amazon ECR...
 
-[Container] 2025/04/01 22:33:26.722351 Running command aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+[Container] 2025/04/01 22:50:25.468398 Running command aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
 WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
 Configure a credential helper to remove this warning. See
 https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 
 Login Succeeded
 
-[Container] 2025/04/01 22:33:40.786003 Running command IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+[Container] 2025/04/01 22:50:38.485850 Running command IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
 
-[Container] 2025/04/01 22:33:40.819379 Running command IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+[Container] 2025/04/01 22:50:38.521809 Running command IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-[Container] 2025/04/01 22:33:40.824404 Phase complete: PRE_BUILD State: SUCCEEDED
-[Container] 2025/04/01 22:33:40.824415 Phase context status code:  Message: 
-[Container] 2025/04/01 22:33:40.873963 Entering phase BUILD
-[Container] 2025/04/01 22:33:40.875098 Running command echo "Building Docker image from App directory..."
+[Container] 2025/04/01 22:50:38.527292 Phase complete: PRE_BUILD State: SUCCEEDED
+[Container] 2025/04/01 22:50:38.527310 Phase context status code:  Message: 
+[Container] 2025/04/01 22:50:38.579895 Entering phase BUILD
+[Container] 2025/04/01 22:50:38.581365 Running command echo "Building Docker image from App directory..."
 Building Docker image from App directory...
 
-[Container] 2025/04/01 22:33:40.879973 Running command cd AWS/Terraform/Dockerized_Web_App_con_CICD/App
+[Container] 2025/04/01 22:50:38.586692 Running command cd AWS/Terraform/Dockerized_Web_App_con_CICD/App
 
-[Container] 2025/04/01 22:33:40.889471 Running command docker build -t $ECR_REPOSITORY .
+[Container] 2025/04/01 22:50:38.591528 Running command docker build -t $ECR_REPOSITORY .
 Sending build context to Docker daemon  36.35kB
 
 Step 1/7 : FROM node:20-alpine
@@ -53,10 +53,10 @@ f18232174bc9: Pulling fs layer
 d7a069a788e0: Pulling fs layer
 42ec265e2954: Pulling fs layer
 42ec265e2954: Waiting
-f18232174bc9: Verifying Checksum
-f18232174bc9: Download complete
 d7a069a788e0: Verifying Checksum
 d7a069a788e0: Download complete
+f18232174bc9: Verifying Checksum
+f18232174bc9: Download complete
 8cc209e5911c: Verifying Checksum
 8cc209e5911c: Download complete
 f18232174bc9: Pull complete
@@ -69,13 +69,13 @@ Digest: sha256:8bda036ddd59ea51a23bc1a1035d3b5c614e72c01366d989f4120e8adca196d4
 Status: Downloaded newer image for node:20-alpine
  ---> 5885a9462a2f
 Step 2/7 : WORKDIR /app
- ---> Running in be15f60a2df8
-Removing intermediate container be15f60a2df8
- ---> 6e4de1b639f2
+ ---> Running in 00b3247a0ae4
+Removing intermediate container 00b3247a0ae4
+ ---> 297dd25ac1c2
 Step 3/7 : COPY package*.json ./
- ---> 15b10cbf6c32
+ ---> c6ec8d062aee
 Step 4/7 : RUN npm install --only=production
- ---> Running in 83ade5de0a46
+ ---> Running in 87475b759d88
 npm warn config only Use `--omit=dev` to omit dev dependencies from the install.
 
 added 69 packages, and audited 70 packages in 1s
@@ -89,37 +89,39 @@ npm notice New major version of npm available! 10.8.2 -> 11.2.0
 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.2.0
 npm notice To update run: npm install -g npm@11.2.0
 npm notice
-Removing intermediate container 83ade5de0a46
- ---> 6220db5faa8a
+Removing intermediate container 87475b759d88
+ ---> 314b4208ef0c
 Step 5/7 : COPY src ./src
- ---> bb3c4892c39f
+ ---> 3adb69866fa0
 Step 6/7 : EXPOSE 3000
- ---> Running in f4e71e884711
-Removing intermediate container f4e71e884711
- ---> 52fb90636d2a
+ ---> Running in a747dcf26b64
+Removing intermediate container a747dcf26b64
+ ---> 142adde6be52
 Step 7/7 : CMD ["npm", "start"]
- ---> Running in 7b9344979bd5
-Removing intermediate container 7b9344979bd5
- ---> 4ac320df68ef
-Successfully built 4ac320df68ef
+ ---> Running in 2a1055c75efa
+Removing intermediate container 2a1055c75efa
+ ---> 4d509ebd1ac2
+Successfully built 4d509ebd1ac2
 Successfully tagged my-web-app:latest
 
-[Container] 2025/04/01 22:33:49.931956 Running command docker tag $ECR_REPOSITORY:latest $IMAGE_URI
+[Container] 2025/04/01 22:50:47.606536 Running command docker tag $ECR_REPOSITORY:latest $IMAGE_URI
 
-[Container] 2025/04/01 22:33:49.955769 Running command docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
+[Container] 2025/04/01 22:50:47.637480 Running command docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
-[Container] 2025/04/01 22:33:49.978758 Phase complete: BUILD State: SUCCEEDED
-[Container] 2025/04/01 22:33:49.978772 Phase context status code:  Message: 
-[Container] 2025/04/01 22:33:50.031433 Entering phase POST_BUILD
-[Container] 2025/04/01 22:33:50.032592 Running command echo "Pushing Docker images..."
+[Container] 2025/04/01 22:50:47.663320 Running command cd ../../..
+
+[Container] 2025/04/01 22:50:47.670673 Phase complete: BUILD State: SUCCEEDED
+[Container] 2025/04/01 22:50:47.670686 Phase context status code:  Message: 
+[Container] 2025/04/01 22:50:47.722122 Entering phase POST_BUILD
+[Container] 2025/04/01 22:50:47.723471 Running command echo "Pushing Docker images..."
 Pushing Docker images...
 
-[Container] 2025/04/01 22:33:50.039637 Running command docker push $IMAGE_URI
+[Container] 2025/04/01 22:50:47.730986 Running command docker push $IMAGE_URI
 The push refers to repository [864899833939.dkr.ecr.eu-south-1.amazonaws.com/my-web-app]
-39cf8e64a7f9: Preparing
-c250d8f08a6b: Preparing
-f16a83327871: Preparing
-bd3cc8725deb: Preparing
+5f11dbcd5ffb: Preparing
+086307468298: Preparing
+f9c0980ed69e: Preparing
+ff4003f00445: Preparing
 71966995f05c: Preparing
 31d5ff869df5: Preparing
 4f35fe5263c7: Preparing
@@ -131,18 +133,18 @@ bd3cc8725deb: Preparing
 31d5ff869df5: Layer already exists
 4f35fe5263c7: Layer already exists
 08000c18d16d: Layer already exists
-39cf8e64a7f9: Pushed
-f16a83327871: Pushed
-bd3cc8725deb: Pushed
-c250d8f08a6b: Pushed
-2f2cede: digest: sha256:d6819002d9fdb4b5a8e926467f39018ced0f16a89168ac456a3c69c174aee6ca size: 1991
+ff4003f00445: Pushed
+5f11dbcd5ffb: Pushed
+f9c0980ed69e: Pushed
+086307468298: Pushed
+10442ee: digest: sha256:c1e370f7cb475298b720f6bdcd1389fe2bcc5798f9f2703ad6c62221324768b6 size: 1991
 
-[Container] 2025/04/01 22:33:51.537710 Running command docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+[Container] 2025/04/01 22:50:49.098257 Running command docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 The push refers to repository [864899833939.dkr.ecr.eu-south-1.amazonaws.com/my-web-app]
-39cf8e64a7f9: Preparing
-c250d8f08a6b: Preparing
-f16a83327871: Preparing
-bd3cc8725deb: Preparing
+5f11dbcd5ffb: Preparing
+086307468298: Preparing
+f9c0980ed69e: Preparing
+ff4003f00445: Preparing
 71966995f05c: Preparing
 31d5ff869df5: Preparing
 4f35fe5263c7: Preparing
@@ -150,47 +152,50 @@ bd3cc8725deb: Preparing
 31d5ff869df5: Waiting
 4f35fe5263c7: Waiting
 08000c18d16d: Waiting
-39cf8e64a7f9: Layer already exists
+5f11dbcd5ffb: Layer already exists
+f9c0980ed69e: Layer already exists
 71966995f05c: Layer already exists
-f16a83327871: Layer already exists
-bd3cc8725deb: Layer already exists
-c250d8f08a6b: Layer already exists
-08000c18d16d: Layer already exists
+ff4003f00445: Layer already exists
+086307468298: Layer already exists
 31d5ff869df5: Layer already exists
+08000c18d16d: Layer already exists
 4f35fe5263c7: Layer already exists
-latest: digest: sha256:d6819002d9fdb4b5a8e926467f39018ced0f16a89168ac456a3c69c174aee6ca size: 1991
+latest: digest: sha256:c1e370f7cb475298b720f6bdcd1389fe2bcc5798f9f2703ad6c62221324768b6 size: 1991
 
-[Container] 2025/04/01 22:33:51.784120 Running command echo "Creating image definitions..."
+[Container] 2025/04/01 22:50:49.385409 Running command echo "Creating image definitions..."
 Creating image definitions...
 
-[Container] 2025/04/01 22:33:51.791170 Running command mkdir -p build_artifacts
+[Container] 2025/04/01 22:50:49.393009 Running command mkdir -p build_artifacts
 
-[Container] 2025/04/01 22:33:51.798669 Running command printf '[{"name":"web-app","imageUri":"%s"}]' $ECR_REGISTRY/$ECR_REPOSITORY:latest > build_artifacts/imagedefinitions.json
+[Container] 2025/04/01 22:50:49.400879 Running command printf '[{"name":"web-app","imageUri":"%s"}]' $ECR_REGISTRY/$ECR_REPOSITORY:latest > build_artifacts/imagedefinitions.json
 
-[Container] 2025/04/01 22:33:51.807454 Running command echo "Verifying file creation..."
+[Container] 2025/04/01 22:50:49.408052 Running command echo "Verifying file creation..."
 Verifying file creation...
 
-[Container] 2025/04/01 22:33:51.815631 Running command ls -la build_artifacts/
+[Container] 2025/04/01 22:50:49.415105 Running command ls -la build_artifacts/
 total 4
-drwxr-xr-x 2 root root  35 Apr  1 22:33 .
-drwxr-xr-x 5 root root 144 Apr  1 22:33 ..
--rw-r--r-- 1 root root  97 Apr  1 22:33 imagedefinitions.json
+drwxr-xr-x 2 root root 35 Apr  1 22:50 .
+drwxr-xr-x 5 root root 70 Apr  1 22:50 ..
+-rw-r--r-- 1 root root 97 Apr  1 22:50 imagedefinitions.json
 
-[Container] 2025/04/01 22:33:51.830895 Phase complete: POST_BUILD State: SUCCEEDED
-[Container] 2025/04/01 22:33:51.830910 Phase context status code:  Message: 
-[Container] 2025/04/01 22:33:52.006469 Expanding base directory path: AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
-[Container] 2025/04/01 22:33:52.009387 Assembling file list
-[Container] 2025/04/01 22:33:52.009401 Expanding AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
-[Container] 2025/04/01 22:33:52.012127 Skipping invalid file path AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
-[Container] 2025/04/01 22:33:52.012437 Set report auto-discover timeout to 5 seconds
-[Container] 2025/04/01 22:33:52.012474 Expanding base directory path:  .
-[Container] 2025/04/01 22:33:52.015181 Assembling file list
-[Container] 2025/04/01 22:33:52.015194 Expanding .
-[Container] 2025/04/01 22:33:52.017971 Expanding file paths for base directory .
-[Container] 2025/04/01 22:33:52.017985 Assembling file list
-[Container] 2025/04/01 22:33:52.018016 Expanding **/*
-[Container] 2025/04/01 22:33:52.041257 No matching auto-discover report paths found
-[Container] 2025/04/01 22:33:52.041281 Report auto-discover file discovery took 0.028844 seconds
-[Container] 2025/04/01 22:33:52.041347 Phase complete: UPLOAD_ARTIFACTS State: FAILED
-[Container] 2025/04/01 22:33:52.041353 Phase context status code: CLIENT_ERROR Message: no matching base directory path found for AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
-no matching base directory path found for AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
+[Container] 2025/04/01 22:50:49.427357 Phase complete: POST_BUILD State: SUCCEEDED
+[Container] 2025/04/01 22:50:49.427374 Phase context status code:  Message: 
+[Container] 2025/04/01 22:50:49.597375 Expanding base directory path: .
+[Container] 2025/04/01 22:50:49.600632 Assembling file list
+[Container] 2025/04/01 22:50:49.600648 Expanding .
+[Container] 2025/04/01 22:50:49.603677 Expanding file paths for base directory .
+[Container] 2025/04/01 22:50:49.603692 Assembling file list
+[Container] 2025/04/01 22:50:49.603696 Expanding build_artifacts/imagedefinitions.json
+[Container] 2025/04/01 22:50:49.606550 Skipping invalid file path build_artifacts/imagedefinitions.json
+[Container] 2025/04/01 22:50:49.607179 Set report auto-discover timeout to 5 seconds
+[Container] 2025/04/01 22:50:49.607281 Expanding base directory path:  .
+[Container] 2025/04/01 22:50:49.610477 Assembling file list
+[Container] 2025/04/01 22:50:49.610490 Expanding .
+[Container] 2025/04/01 22:50:49.613682 Expanding file paths for base directory .
+[Container] 2025/04/01 22:50:49.613696 Assembling file list
+[Container] 2025/04/01 22:50:49.613796 Expanding **/*
+[Container] 2025/04/01 22:50:49.639804 No matching auto-discover report paths found
+[Container] 2025/04/01 22:50:49.639850 Report auto-discover file discovery took 0.032671 seconds
+[Container] 2025/04/01 22:50:49.639867 Phase complete: UPLOAD_ARTIFACTS State: FAILED
+[Container] 2025/04/01 22:50:49.639874 Phase context status code: CLIENT_ERROR Message: no matching artifact paths found
+no matching artifact paths found
