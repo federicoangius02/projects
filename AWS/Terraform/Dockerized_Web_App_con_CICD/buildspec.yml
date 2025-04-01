@@ -24,7 +24,9 @@ phases:
       - echo "Creating image definitions..."
       - mkdir -p AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
       - printf '[{"name":"web-app","imageUri":"%s"}]' $ECR_REGISTRY/$ECR_REPOSITORY:latest > AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts/imagedefinitions.json
-      - ls -la AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts/  # Verifica
+      - ls -la AWS/Terraform/Dockerized_Web_App_con_CICD/
+      - ls -la AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts/
+
 
 artifacts:
   files:
