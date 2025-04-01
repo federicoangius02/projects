@@ -22,11 +22,12 @@ phases:
       - docker push $IMAGE_URI
       - docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
       - echo "Creating image definitions..."
-      - mkdir -p AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
-      - printf '[{"name":"web-app","imageUri":"%s"}]' $ECR_REGISTRY/$ECR_REPOSITORY:latest > AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts/imagedefinitions.json
-      - ls -la AWS/Terraform/Dockerized_Web_App_con_CICD/
-      - ls -la AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts/
+      - mkdir -p build_artifacts
+      - printf '[{"name":"web-app","imageUri":"%s"}]' $ECR_REGISTRY/$ECR_REPOSITORY:latest > build_artifacts/imagedefinitions.json
+      - echo "Verifying file creation..."
+      - ls -la build_artifacts/
 
 artifacts:
   files:
-    - AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts/imagedefinitions.json
+    - 'build_artifacts/imagedefinitions.json'
+  base-directory: 'build_artifacts'
