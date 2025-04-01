@@ -15,6 +15,7 @@ phases:
       - docker build -t $ECR_REPOSITORY .
       - docker tag $ECR_REPOSITORY:latest $IMAGE_URI
       - docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
+      - cd ../../..  # Torna alla directory radice
 
   post_build:
     commands:
@@ -28,6 +29,5 @@ phases:
       - ls -la build_artifacts/
 
 artifacts:
-  base-directory: AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
   files:
-    - imagedefinitions.json
+    - 'build_artifacts/imagedefinitions.json'
