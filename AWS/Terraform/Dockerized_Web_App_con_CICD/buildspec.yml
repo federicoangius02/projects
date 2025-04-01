@@ -28,6 +28,6 @@ phases:
       - ls -la build_artifacts/
 
 artifacts:
+  base-directory: AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
   files:
-    - 'build_artifacts/imagedefinitions.json'
-  base-directory: 'build_artifacts'
+    - imagedefinitions.json
