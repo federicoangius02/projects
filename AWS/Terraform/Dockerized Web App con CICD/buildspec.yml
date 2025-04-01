@@ -11,7 +11,7 @@ phases:
   build:
     commands:
       - echo "Building Docker image from App directory..."
-      - cd projects/AWS/Terraform/Dockerized\ Web\ App\ con\ CICD/App
+      - cd AWS/Terraform/Dockerized\ Web\ App\ con\ CICD/App
       - docker build -t $ECR_REPOSITORY .
       - docker tag $ECR_REPOSITORY:latest $IMAGE_URI
 
@@ -25,4 +25,4 @@ phases:
       
 artifacts:
   files:
-    - projects/AWS/Terraform/Dockerized Web App con CICD/imagedefinitions.json
+    - AWS/Terraform/Dockerized Web App con CICD/imagedefinitions.json
