@@ -30,6 +30,6 @@ phases:
 
 artifacts:
   files:
-    - '**/*'
-  base-directory: AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
-  discard-paths: yes
+    - imagedefinitions.json
+  base-directory: ./AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
+
