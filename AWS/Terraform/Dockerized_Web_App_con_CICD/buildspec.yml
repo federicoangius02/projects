@@ -29,5 +29,4 @@ phases:
 
 artifacts:
   files:
-    - imagedefinitions.json
-  base-directory: ./AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
+    - AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts/imagedefinitions.json
