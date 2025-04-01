@@ -22,10 +22,10 @@ phases:
       - docker push $IMAGE_URI
       - docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
       - echo "Creating image definitions..."
-      - mkdir -p ../../artifacts
-      - printf '[{"name":"web-app","imageUri":"%s"}]' $ECR_REGISTRY/$ECR_REPOSITORY:latest > ../../artifacts/imagedefinitions.json
+      - mkdir -p output  # Crea una cartella temporanea nella root
+      - printf '[{"name":"web-app","imageUri":"%s"}]' $ECR_REGISTRY/$ECR_REPOSITORY:latest > output/imagedefinitions.json
       
 artifacts:
   files:
-    - AWS/Terraform/Dockerized_Web_App_con_CICD/artifacts/imagedefinitions.json
-  base-directory: AWS/Terraform/Dockerized_Web_App_con_CICD
+    - output/imagedefinitions.json
+  discard-paths: yes  # Ignora la struttura di cartelle
