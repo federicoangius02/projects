@@ -29,10 +29,10 @@ usermod -aG docker ec2-user
 
 # --- Login a ECR ---
 aws ecr get-login-password --region ${var.region} | \
-  docker login --username AWS --password-stdin ${var.ecr_registry}
+  docker login --username AWS --password-stdin ${local.ecr_registry}
 
 # --- Pull e run dell'immagine ---
-docker pull ${var.ecr_registry}/${var.ecr_repository}:latest
+docker pull ${local.ecr_registry}/${var.ecr_repository}:latest
 
 # --- Cleanup di eventuali container precedenti ---
 docker stop web-app || true
@@ -44,7 +44,7 @@ docker run -d \
   --restart unless-stopped \
   -p 3000:3000 \
   -e NODE_ENV=production \
-  ${var.ecr_registry}/${var.ecr_repository}:latest
+  ${local.ecr_registry}/${var.ecr_repository}:latest
 EOF
 
   tags = {

@@ -23,7 +23,7 @@ resource "aws_codebuild_project" "web_app_build" {
     
     environment_variable {
       name  = "ECR_REGISTRY"
-      value = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com"
+      value = local.ecr_registry
     }
 
     environment_variable {
@@ -49,24 +49,21 @@ resource "aws_codepipeline" "web_app_pipeline" {
   }
 
   stage {
-    name = "Source"
-
-    action {
-      name             = "Source"
-      category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
-      version          = "1"
-      output_artifacts = ["source_output"]
-
-      configuration = {
-        Owner      = var.github_owner
-        Repo       = var.github_repo
-        Branch     = var.github_branch
-        OAuthToken = var.github_token
-      }
+  name = "Source"
+  action {
+    name             = "Source"
+    category         = "Source"
+    owner            = "AWS"
+    provider         = "CodeStarSourceConnection"  # <-- Nuovo provider
+    version          = "1"
+    output_artifacts = ["source_output"]
+    configuration = {
+      ConnectionArn    = aws_codestarconnections_connection.github.arn
+      FullRepositoryId = "${var.github_owner}/${var.github_repo}"
+      BranchName       = var.github_branch
     }
   }
+}
 
   stage {
     name = "Build"
@@ -85,6 +82,12 @@ resource "aws_codepipeline" "web_app_pipeline" {
       }
     }
   }
+}
+
+# CodeStar Connection
+resource "aws_codestarconnections_connection" "github" {
+  name          = "github-connection"
+  provider_type = "GitHub"
 }
 
 # Webhook

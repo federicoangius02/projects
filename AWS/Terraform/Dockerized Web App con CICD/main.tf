@@ -2,6 +2,12 @@ provider "aws" {
   region = var.region
 }
 
+data "aws_caller_identity" "current" {}
+
+locals {
+  ecr_registry = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com"
+}
+
 resource "aws_iam_role" "ec2_role" {
   name = "web-app-ec2-role"
   assume_role_policy = jsonencode({

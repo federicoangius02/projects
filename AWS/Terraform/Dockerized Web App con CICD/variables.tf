@@ -32,16 +32,6 @@ variable "ecr_repository" {
   default = "my-web-app"
 }
 
-variable "ecr_registry" {
-  default = "864899833939.dkr.ecr.eu-south-1.amazonaws.com"
-}
-
-variable "github_token" {
-  description = "GitHub personal access token"
-  type        = string
-  sensitive = true
-}
-
 variable "github_owner" {
   description = "GitHub username or organization"
   type        = string
@@ -55,5 +45,5 @@ variable "github_repo" {
 variable "github_branch" {
   description = "GitHub branch name"
   type        = string
-  default     = "main"
+  default = "main"
 }
