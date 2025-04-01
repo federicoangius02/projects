@@ -3,7 +3,6 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo "Working directory: $(pwd)"
       - echo "Logging in to Amazon ECR..."
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
       - if [ -z "$CODEBUILD_RESOLVED_SOURCE_VERSION" ]; then export IMAGE_TAG="latest"; else export IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7); fi
