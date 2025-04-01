@@ -74,71 +74,28 @@ resource "aws_iam_role" "codebuild_role" {
 }
 
 resource "aws_iam_role_policy" "codebuild_policy" {
-  name = "web-app-codebuild-policy"
   role = aws_iam_role.codebuild_role.name
 
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
-      # Permessi per i log
       {
         Effect = "Allow",
         Action = [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
-          "logs:PutLogEvents"
+          "logs:PutLogEvents",
+          "ecr:*",
+          "s3:*"
         ],
-        Resource = [
-          "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/*",
-          "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/*:*"
-        ]
+        Resource = "*"
       },
-      
-      # Permessi per ECR (limitati al tuo repository)
       {
         Effect = "Allow",
         Action = [
-          "ecr:GetAuthorizationToken",
-          "ecr:BatchCheckLayerAvailability",
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:PutImage",
-          "ecr:InitiateLayerUpload",
-          "ecr:UploadLayerPart",
-          "ecr:CompleteLayerUpload",
-          "ecr:BatchGetImage"
+          "ecr:GetAuthorizationToken"
         ],
-        Resource = [
-          "arn:aws:ecr:${var.region}:${data.aws_caller_identity.current.account_id}:repository/${var.ecr_repository}"
-        ]
-      },
-      
-      # Permessi per S3 (limitati al tuo bucket degli artefatti)
-      {
-        Effect = "Allow",
-        Action = [
-          "s3:GetObject",
-          "s3:GetObjectVersion",
-          "s3:PutObject",
-          "s3:ListBucket"
-        ],
-        Resource = [
-          "${aws_s3_bucket.artifacts_bucket.arn}",
-          "${aws_s3_bucket.artifacts_bucket.arn}/*"
-        ]
-      },
-      
-      # Permesso per ottenere il codice sorgente da CodePipeline
-      {
-        Effect = "Allow",
-        Action = [
-          "codebuild:CreateReportGroup",
-          "codebuild:CreateReport",
-          "codebuild:UpdateReport",
-          "codebuild:BatchPutTestCases"
-        ],
-        Resource = [
-          "arn:aws:codebuild:${var.region}:${data.aws_caller_identity.current.account_id}:report-group/web-app-build-*"
-        ]
+        Resource = "*"
       }
     ]
   })
