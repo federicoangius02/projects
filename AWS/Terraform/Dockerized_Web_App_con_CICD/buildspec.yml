@@ -27,6 +27,7 @@ phases:
       - ls -la AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts/  # Verifica
 
 artifacts:
-  base-directory: AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
   files:
-    - imagedefinitions.json
+    - '**/*'  # Carica tutti i file nella root del progetto
+  base-directory: AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
+  discard-paths: yes  # Ignora la struttura delle cartelle
