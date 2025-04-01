@@ -24,8 +24,8 @@ phases:
       
       # Diagnostic commands
       - echo "=== DIAGNOSTIC INFORMATION START ==="
-      - echo "Current directory: $(pwd)"
-      - echo "CODEBUILD_SRC_DIR: $CODEBUILD_SRC_DIR"
+      #- echo "Current directory: $(pwd)"
+      #- echo "CODEBUILD_SRC_DIR: $CODEBUILD_SRC_DIR"
       - echo "Directory contents:"
       - ls -la $CODEBUILD_SRC_DIR
       
