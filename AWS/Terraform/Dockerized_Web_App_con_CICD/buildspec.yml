@@ -14,7 +14,6 @@ phases:
       - cd AWS/Terraform/Dockerized_Web_App_con_CICD/App
       - docker build -t $ECR_REPOSITORY .
       - docker tag $ECR_REPOSITORY:latest $IMAGE_URI
-      - docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
   post_build:
     commands:
@@ -28,6 +27,6 @@ phases:
 
 artifacts:
   files:
-    - '**/*'  # Carica tutti i file nella root del progetto
+    - '**/*'
   base-directory: AWS/Terraform/Dockerized_Web_App_con_CICD/build_artifacts
-  discard-paths: yes  # Ignora la struttura delle cartelle
+  discard-paths: yes
