@@ -89,18 +89,3 @@ resource "aws_codestarconnections_connection" "github" {
   name          = "github-connection"
   provider_type = "GitHub"
 }
-
-# Webhook
-resource "aws_codebuild_webhook" "webhook" {
-  project_name = aws_codebuild_project.web_app_build.name
-  filter_group {
-    filter {
-      type    = "EVENT"
-      pattern = "PUSH"
-    }
-    filter {
-      type    = "HEAD_REF"
-      pattern = var.github_branch
-    }
-  }
-}

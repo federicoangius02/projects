@@ -1,6 +1,7 @@
 # S3 Artifact Bucket
 resource "aws_s3_bucket" "artifacts_bucket" {
   bucket = "web-app-pipeline-artifacts-${data.aws_caller_identity.current.account_id}"
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "artifacts_bucket_encryption" {

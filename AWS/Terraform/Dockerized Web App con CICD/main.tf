@@ -116,9 +116,8 @@ resource "aws_iam_role" "codepipeline_role" {
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
-  name = "web-app-pipeline-policy"
-  role = aws_iam_role.codepipeline_role.id
-
+  name   = "web-app-pipeline-policy"
+  role   = aws_iam_role.codepipeline_role.id
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -149,6 +148,14 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
           "ecr:DescribeImages"
         ],
         Resource = "*"
+      },
+      # Aggiungi queste nuove autorizzazioni per CodeStar Connections
+      {
+        Effect = "Allow",
+        Action = [
+          "codestar-connections:UseConnection"
+        ],
+        Resource = aws_codestarconnections_connection.github.arn
       }
     ]
   })
