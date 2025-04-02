@@ -15,9 +15,9 @@ phases:
       - ls
       - cd AWS/Terraform/Dockerized_Web_App_con_CICD/App
       - echo "Building Docker image..."
-      - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
+      - docker build -t $IMAGE_TAG .
       - echo "Tagging Docker image..."
-      - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:latest
+      - docker tag $IMAGE_TAG:latest $REPOSITORY_URI:latest
 
       - docker images
 
