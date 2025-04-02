@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Logging in to Amazon ECR..."
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      - echo $IMAGE_TAG
+      - echo $IMAGE_URI
+  
+  build:
+    commands:
+      - cd aws/terraform/dockerized_webb_app_cicd/app
+      - echo "Building Docker image..."
+      - docker build -t $ECR_REPOSITORY .
+      - echo "Tagging Docker image..."
+      - docker tag $ECR_REPOSITORY:latest $IMAGE_URI
+      - docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      - docker images
+
+  post_build:
+    commands:
+      - echo "Pushing Docker image to ECR..."
+      - docker push $IMAGE_URI
+      - docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest

@@ -35,3 +35,21 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# ---- Inizio sezione per il progetto AWS ----
+# File di ambiente
+/aws/terraform/applicazione_web_scalabile/backend/.env
+/aws/terraform/applicazione_web_scalabile/backend/.env*
+
+# Dipendenze Node.js
+/aws/terraform/applicazione_web_scalabile/backend/node_modules/
+
+# File di sviluppo
+/aws/terraform/applicazione_web_scalabile/backend/.vscode/
+/aws/terraform/applicazione_web_scalabile/backend/*.log
+/aws/terraform/applicazione_web_scalabile/backend/dist/
+
+# File generati da Terraform
+/aws/terraform/applicazione_web_scalabile/infra/.terraform*
+/aws/terraform/applicazione_web_scalabile/infra/*.tfstate*
+# ---- Fine sezione per il progetto AWS ----

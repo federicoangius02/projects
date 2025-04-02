@@ -1,0 +1,150 @@
+Sto studiando per diventare AWS Cloud Engineer, AWS DevOps Engineer.
+Ho già 4 certificazioni che comprendono Cloud Certified Practitioner, Certified Solutions Architect - Associate, Certified Developer - Associate e Certified DevOps Engineer - Professional.
+Conosco Linux, Bash Scripting, Terraform, Git, Docker e sto imparando Kubernetes.
+Ho necessità di creare un solido portfolio di progetti in quanto non ho esperienza lavorativa, ho già fatto abbastanza progetti per AWS adesso vorrei esercitarmi con Docker e Kubernetes.
+In particolare con Kubernetes ho seguito un video corso in cui veniva utilizzato Minikube.
+Questi sono i progetti che mi hai già proposto:
+
+1. Docker Projects
+Progetto 1: Dockerized Web App con CI/CD
+Obiettivo: Creare un'applicazione web (es. Python Flask, Node.js) e dockerizzarla.
+
+Steps:
+
+Scrivi una semplice app web.
+
+Crea un Dockerfile e un docker-compose.yml.
+
+Configura un workflow GitHub Actions per buildare e pushare l'immagine su Docker Hub o AWS ECR.
+
+Esegui il deploy su un'istanza EC2 usando docker run o docker-compose.
+
+Bonus:
+
+Aggiungi un database (PostgreSQL/MySQL) in un container separato.
+
+Configura il load balancing con nginx in un altro container.
+
+Progetto 2: Multi-Container App con Docker Compose
+Obiettivo: Simulare un ambiente microservices con più servizi.
+
+Esempio: Un'applicazione con:
+
+Frontend (React/Next.js)
+
+Backend (Node.js/Python)
+
+Database (PostgreSQL/Redis)
+
+Logging (ELK Stack o Grafana Loki)
+
+Bonus:
+
+Configura reti Docker custom per isolare i servizi.
+
+Usa volumi Docker per persistenza dei dati.
+
+2. Kubernetes Projects
+Progetto 3: Kubernetes Locale con Minikube/Kind
+Obiettivo: Deployare un'app multi-container su un cluster locale.
+
+Steps:
+
+Crea manifesti Kubernetes (Deployment, Service, ConfigMap, Secret).
+
+Configura un Ingress Controller (Nginx/Traefik) per esporre l'app.
+
+Usa kubectl per gestire lo stato del cluster.
+
+Bonus:
+
+Implementa autoscaling (HorizontalPodAutoscaler).
+
+Usa Kustomize o Helm per templating.
+
+Progetto 4: Kubernetes su AWS (EKS)
+Obiettivo: Eseguire il deploy di un cluster Kubernetes su AWS EKS.
+
+Steps:
+
+Crea un cluster EKS usando Terraform o eksctl.
+
+Deploya la stessa app del Progetto 3.
+
+Configura ALB Ingress Controller per esporre l'app.
+
+Monitora il cluster con Prometheus + Grafana.
+
+Bonus:
+
+Usa AWS RDS invece di un database in-cluster.
+
+Configura IAM Roles for Service Accounts (IRSA) per accesso sicuro ad AWS services.
+
+Progetto 5: GitOps con ArgoCD/Flux
+Obiettivo: Automatizzare il deploy su Kubernetes usando GitOps.
+
+Steps:
+
+Crea un repository Git con i manifesti Kubernetes.
+
+Installa ArgoCD sul cluster.
+
+Configura la sincronizzazione automatica da Git a Kubernetes.
+
+Bonus:
+
+Usa Sealed Secrets per gestire segreti in Git.
+
+Implementa un Canary Deployment.
+
+Progetto 6: Serverless su Kubernetes (Knative/OpenFaaS)
+Obiettivo: Eseguire funzioni serverless su Kubernetes.
+
+Steps:
+
+Installa Knative o OpenFaaS su un cluster.
+
+Deploya una funzione serverless (es. un webhook per processare dati).
+
+Configura il autoscaling a zero.
+
+Bonus:
+
+Integra con AWS Lambda usando AWS EventBridge.
+
+3. Advanced Projects
+Progetto 7: Kubernetes Multi-Cluster con Istio
+Obiettivo: Gestire un service mesh su più cluster.
+
+Steps:
+
+Crea due cluster (EKS + Minikube).
+
+Installa Istio e configura il multi-cluster setup.
+
+Simula un failover tra cluster.
+
+Bonus:
+
+Usa Telemetry e Tracing (Jaeger/Zipkin).
+
+Progetto 8: Kubernetes in Production (Hardening)
+Obiettivo: Applicare best practices di sicurezza e scalabilità.
+
+Steps:
+
+Configura Network Policies per isolare i pod.
+
+Usa Pod Security Policies (o OPA Gatekeeper).
+
+Configura Resource Quotas e Limit Ranges.
+
+Simula un disastro (es. nodo crashato) e ripristina il cluster.
+
+Bonus:
+
+Backup con Velero.
+
+Vorrei fare il secondo progetto in quanto ho già fatto il primo.
+Non voglio che mi fornisca direttamente il codice, vorrei semplicemente una guida dettagliata.
