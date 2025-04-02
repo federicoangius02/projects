@@ -20,7 +20,7 @@ resource "aws_codebuild_project" "web_app_build" {
       name  = "AWS_DEFAULT_REGION"
       value = var.region
     }
-    
+
     environment_variable {
       name  = "ECR_REGISTRY"
       value = local.ecr_registry
@@ -49,21 +49,21 @@ resource "aws_codepipeline" "web_app_pipeline" {
   }
 
   stage {
-  name = "Source"
-  action {
-    name             = "Source"
-    category         = "Source"
-    owner            = "AWS"
-    provider         = "CodeStarSourceConnection"  # <-- Nuovo provider
-    version          = "1"
-    output_artifacts = ["source_output"]
-    configuration = {
-      ConnectionArn    = aws_codestarconnections_connection.github.arn
-      FullRepositoryId = "${var.github_owner}/${var.github_repo}"
-      BranchName       = var.github_branch
+    name = "Source"
+    action {
+      name             = "Source"
+      category         = "Source"
+      owner            = "AWS"
+      provider         = "CodeStarSourceConnection" # <-- Nuovo provider
+      version          = "1"
+      output_artifacts = ["source_output"]
+      configuration = {
+        ConnectionArn    = aws_codestarconnections_connection.github.arn
+        FullRepositoryId = "${var.github_owner}/${var.github_repo}"
+        BranchName       = var.github_branch
+      }
     }
   }
-}
 
   stage {
     name = "Build"
