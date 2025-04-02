@@ -6,42 +6,18 @@ phases:
       - echo "Logging in to Amazon ECR..."
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      
+      - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY
+  
   build:
     commands:
-      - echo "Building Docker image from App directory..."
-      - cd AWS/Terraform/Dockerized_Web_App_con_CICD/App
-      - docker build -t $ECR_REPOSITORY .
-      - docker tag $ECR_REPOSITORY:latest $IMAGE_URI
-      - docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
+      - cd App
+      - echo "Building Docker image..."
+      - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
+      - echo "Tagging Docker image..."
+      - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:latest
 
   post_build:
     commands:
-      - echo "Pushing Docker images..."
-      - docker push $IMAGE_URI
-      - docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-      
-      # Diagnostic commands
-      - echo "=== DIAGNOSTIC INFORMATION START ==="
-      - echo "Current directory: $$(pwd)"
-      - echo "CODEBUILD_SRC_DIR: $$CODEBUILD_SRC_DIR"
-      - echo "Directory contents:"
-      - ls -la $CODEBUILD_SRC_DIR
-      
-      # Create artifacts
-      - echo "Creating image definitions..."
-      - mkdir -p $CODEBUILD_SRC_DIR/build_artifacts
-      - printf '[{"name":"web-app","imageUri":"%s"}]' $ECR_REGISTRY/$ECR_REPOSITORY:latest > $CODEBUILD_SRC_DIR/build_artifacts/imagedefinitions.json
-      
-      # Verify creation
-      - echo "Build artifacts contents:"
-      - ls -la $CODEBUILD_SRC_DIR/build_artifacts/
-      - echo "File content:"
-      - cat $CODEBUILD_SRC_DIR/build_artifacts/imagedefinitions.json
-      - echo "=== DIAGNOSTIC INFORMATION END ==="
-
-artifacts:
-  files:
-    - 'build_artifacts/imagedefinitions.json'
-  base-directory: $CODEBUILD_SRC_DIR
+      - echo "Pushing Docker image to ECR..."
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push $REPOSITORY_URI:latest
