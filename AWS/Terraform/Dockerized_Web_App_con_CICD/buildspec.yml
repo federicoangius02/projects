@@ -6,23 +6,23 @@ phases:
       - echo "Logging in to Amazon ECR..."
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - REPOSITORY_URI=$ECR_REGISTRY/$ECR_REPOSITORY
+      - IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       - echo $IMAGE_TAG
-      - echo $REPOSITORY_URI
+      - echo $IMAGE_URI
   
   build:
     commands:
-      - ls
       - cd AWS/Terraform/Dockerized_Web_App_con_CICD/App
       - echo "Building Docker image..."
-      - docker build -t $REPOSITORY_URI .
+      - docker build -t $ECR_REPOSITORY .
       - echo "Tagging Docker image..."
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker tag $ECR_REPOSITORY:latest $IMAGE_URI
+      - docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
       - docker images
 
   post_build:
     commands:
       - echo "Pushing Docker image to ECR..."
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - docker push $REPOSITORY_URI:latest
+      - docker push $IMAGE_URI
+      - docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
