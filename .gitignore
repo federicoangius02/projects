@@ -1,55 +1,56 @@
-# Local .terraform directories
-**/.terraform/*
+# Ignora cartelle node_modules in tutte le sottocartelle
+**/node_modules/
 
-# .tfstate files
+# Ignora file di log
+**/*.log
+
+# Ignora file temporanei di Visual Studio Code
+.vscode/
+
+# Ignora cartelle di build
+**/dist/
+
+# Ignora file di configurazione locali di ambiente
+**/.env
+
+# Ignora file di configurazione specifici di Terraform
+.terraform/
 *.tfstate
 *.tfstate.*
-
-# Crash log files
-crash.log
-crash.*.log
-
-# Exclude all .tfvars files, which are likely to contain sensitive data, such as
-# password, private keys, and other secrets. These should not be part of version 
-# control as they are data points which are potentially sensitive and subject 
-# to change depending on the environment.
-*.tfvars
-*.tfvars.json
-
-# Ignore override files as they are usually used to override resources locally and so
-# are not checked in
+.terraform.tfstate.lock.info
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
-
-# Ignore transient lock info files created by terraform apply
-.terraform.tfstate.lock.info
-
-# Include override files you do wish to add to version control using negated pattern
-# !example_override.tf
-
-# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
-# example: *tfplan*
-
-# Ignore CLI configuration files
-.terraformrc
 terraform.rc
+.terraformrc
 
-# ---- Inizio sezione per il progetto AWS ----
-# File di ambiente
+# Ignora file di variabili sensibili in Terraform
+*.tfvars
+*.tfvars.json
+
+# Ignora file di output di Terraform
+*tfplan*
+
+# Ignora file generati in specifici progetti AWS
 /aws/terraform/applicazione_web_scalabile/backend/.env
 /aws/terraform/applicazione_web_scalabile/backend/.env*
 
-# Dipendenze Node.js
+# Ignora dipendenze Node.js nella cartella backend
 /aws/terraform/applicazione_web_scalabile/backend/node_modules/
 
-# File di sviluppo
-/aws/terraform/applicazione_web_scalabile/backend/.vscode/
+# Ignora file di log nella cartella backend
 /aws/terraform/applicazione_web_scalabile/backend/*.log
-/aws/terraform/applicazione_web_scalabile/backend/dist/
 
-# File generati da Terraform
+# Ignora file generati in Terraform nella cartella infra
 /aws/terraform/applicazione_web_scalabile/infra/.terraform*
 /aws/terraform/applicazione_web_scalabile/infra/*.tfstate*
-# ---- Fine sezione per il progetto AWS ----
+
+# Ignora file di grandi dimensioni
+*.iso
+*.tar.gz
+*.tgz
+*.zip
+
+# Ignora specifici file di grandi dimensioni nel progetto frontend
+/aws/docker/docker_compose_multi-container_app/frontend/node_modules/@next/swc-linux-x64-gnu/next-swc.linux-x64-gnu.node
