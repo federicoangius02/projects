@@ -1,56 +1,88 @@
-# Ignora cartelle node_modules in tutte le sottocartelle
+### File generati da Next.js ###
+.next/
+out/
+**/.next/
+**/out/
+
+### Dipendenze Node ###
 **/node_modules/
+**/.pnpm-store/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
 
-# Ignora file di log
-**/*.log
-
-# Ignora file temporanei di Visual Studio Code
-.vscode/
-
-# Ignora cartelle di build
-**/dist/
-
-# Ignora file di configurazione locali di ambiente
+### File di ambiente ###
 **/.env
+**/.env.local
+**/.env.development
+**/.env.test
+**/.env.production
+**/.env*.local
 
-# Ignora file di configurazione specifici di Terraform
+### File di IDE/Editor ###
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+### File di build/dist ###
+**/dist/
+**/build/
+**/.output/
+**/.cache/
+**/coverage/
+**/.nyc_output/
+
+### File di sistema ###
+.DS_Store
+Thumbs.db
+
+### File di log ###
+*.log
+logs/
+
+### Terraform ###
 .terraform/
+**/.terraform.lock.hcl
 *.tfstate
 *.tfstate.*
 .terraform.tfstate.lock.info
-override.tf
-override.tf.json
-*_override.tf
-*_override.tf.json
+*.tfvars
+*.tfvars.json
 terraform.rc
 .terraformrc
 
-# Ignora file di variabili sensibili in Terraform
-*.tfvars
-*.tfvars.json
+### Docker ###
+**/docker-compose.override.yml
+**/.dockerignore
 
-# Ignora file di output di Terraform
-*tfplan*
-
-# Ignora file generati in specifici progetti AWS
-/aws/terraform/applicazione_web_scalabile/backend/.env
-/aws/terraform/applicazione_web_scalabile/backend/.env*
-
-# Ignora dipendenze Node.js nella cartella backend
-/aws/terraform/applicazione_web_scalabile/backend/node_modules/
-
-# Ignora file di log nella cartella backend
-/aws/terraform/applicazione_web_scalabile/backend/*.log
-
-# Ignora file generati in Terraform nella cartella infra
-/aws/terraform/applicazione_web_scalabile/infra/.terraform*
-/aws/terraform/applicazione_web_scalabile/infra/*.tfstate*
-
-# Ignora file di grandi dimensioni
-*.iso
+### File temporanei/binari ###
+*.tmp
+*.bak
+*.pid
+*.seed
+*.pid.lock
+*.pem
+*.dump
+*.exe
+*.bin
+*.class
+*.jar
+*.war
+*.ear
 *.tar.gz
 *.tgz
 *.zip
+*.iso
+*.dll
+*.so
+*.pyc
+__pycache__/
 
-# Ignora specifici file di grandi dimensioni nel progetto frontend
+### File specifici del tuo progetto (aggiungi qui altri percorsi personalizzati) ###
 /aws/docker/docker_compose_multi-container_app/frontend/node_modules/@next/swc-linux-x64-gnu/next-swc.linux-x64-gnu.node
