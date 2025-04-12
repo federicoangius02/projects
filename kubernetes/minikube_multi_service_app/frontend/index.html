@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    
-</body>
+    <h1>Frontend Funziona!</h1>
+    <p>API response: <span id="api"></span></p>
+    <script>
+      fetch('/api')
+        .then(res => res.text())
+        .then(data => document.getElementById('api').textContent = data);
+    </script>
+  </body>
 </html>

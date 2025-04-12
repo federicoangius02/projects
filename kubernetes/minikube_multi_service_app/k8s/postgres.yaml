@@ -41,3 +41,17 @@ spec:
       - name: postgres-storage
         persistentVolumeClaim:
           claimName: postgres-pvc  # Usa il PVC creato sopra
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  selector:
+    app: postgres  # Deve matchare i label del Deployment
+  ports:
+    - protocol: TCP
+      port: 5432    # Porta del Service
+      targetPort: 5432  # Porta del container PostgreSQL
+  # type: ClusterIP (default, accessibile solo dentro il cluster)
