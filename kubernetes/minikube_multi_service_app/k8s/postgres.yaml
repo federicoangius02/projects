@@ -1,0 +1,43 @@
+# PersistentVolumeClaim: Riserva spazio su disco per il DB
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce  # Solo un Pod può scrivere
+  resources:
+    requests:
+      storage: 1Gi   # 1 GB di spazio
+
+---
+# Deployment: Crea il Pod di PostgreSQL
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13  # Immagine ufficiale PostgreSQL
+        env:
+        - name: POSTGRES_PASSWORD
+          value: "mysecretpassword"  # Password per il DB
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data  # Monta il volume qui
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc  # Usa il PVC creato sopra
