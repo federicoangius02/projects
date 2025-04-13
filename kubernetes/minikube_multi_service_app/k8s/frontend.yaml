@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: <tuo-username>/frontend:v1  # Sostituisci con la tua immagine Docker
+        image: fefone/frontend:v1  # Sostituisci con la tua immagine Docker
         ports:
         - containerPort: 80  # Porta esposta dal container
 
