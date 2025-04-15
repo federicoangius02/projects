@@ -1,8 +1,11 @@
 # Immagine base ufficiale Python (versione slim per ridurre le dimensioni)
 FROM python:3.9-slim
 
-# Installa curl per eventuali test o download di file
-RUN apt-get update && apt-get install -y --no-install-recommends curl
+# Installa curl e il client PostgreSQL per eventuali test o debug
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -19,7 +22,7 @@ COPY . .
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 
-# Esposione della porta (solo a scopo documentativo, Flask usa 5000 di default)
+# Esposizione della porta (solo a scopo documentativo, Flask usa 5000 di default)
 EXPOSE 5000
 
 # Comando di avvio dell'applicazione
