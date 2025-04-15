@@ -1,0 +1,62 @@
+Questo è il progetto che stavamo implementando in un altra chat:
+
+Progetto Base: "K8s-Basic" – App Web + API + DB su Minikube
+Obiettivo:
+Deployare un’applicazione con:
+
+Frontend (Nginx o un server statico)
+
+Backend (Python Flask o Node.js)
+
+Database (PostgreSQL)
+
+Ingress per esporre l’app localmente
+
+Struttura del progetto:
+
+k8s-basic/
+├── frontend/
+│   ├── index.html             # Pagina HTML semplice
+│   └── Dockerfile             # Immagine Nginx
+├── backend/
+│   ├── app.py                 # API Flask
+│   ├── Dockerfile             # Immagine Python
+│   └── requirements.txt
+└── k8s/
+    ├── 1-frontend.yaml        # Deployment + Service
+    ├── 2-backend.yaml         # Deployment + Service
+    ├── 3-postgres.yaml       # PostgreSQL con PersistentVolume
+    └── 4-ingress.yaml        # Configurazione Ingress
+
+Stavamo cercando di semplificare app.py assicurandoci però che sia facile testare il database dal backend,
+adesso invio tutti i file che ho:
+
+Dockerfile backend:
+
+FROM python:3.9
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get purge -y --auto-remove
+
+WORKDIR /app
+
+# Prima copia solo i file necessari per l'installazione delle dipendenze
+COPY requirements.txt ./
+
+# Installazione pulita delle dipendenze
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Poi copia il resto del codice
+COPY . .
+
+# Variabile d'ambiente per Flask
+ENV FLASK_APP=app.py
+
+CMD ["python", "app.py"]
+
+Dockerfile frontend:
+
+FROM nginx:1.27-alpine
+COPY index.html /usr/share/nginx/html
