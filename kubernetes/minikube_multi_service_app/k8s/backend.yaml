@@ -17,6 +17,17 @@ spec:
         image: fefone/backend:v1  # Sostituisci con la tua immagine
         ports:
         - containerPort: 5000  # Porta dell'API Flask
+        env:
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "mysecretpassword"
+        - name: POSTGRES_DB
+          value: "postgres"
+        - name: POSTGRES_SERVICE_SERVICE_HOST
+          value: "postgres-service"
+        - name: POSTGRES_SERVICE_SERVICE_PORT
+          value: "5432"
 
 ---
 apiVersion: v1

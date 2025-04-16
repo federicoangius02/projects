@@ -25,7 +25,7 @@ db = SQLAlchemy(app)
 # Modello semplice
 class Utente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(50))
+    nome_completo = db.Column(db.String(50))
 
 # Crea le tabelle al primo avvio
 with app.app_context():
@@ -53,20 +53,20 @@ def db_check():
 @app.route("/api/utenti", methods=["GET", "POST"])
 def utenti():
     if request.method == "POST":
-        nome = request.json.get('nome')
-        if not nome:
-            return jsonify({"error": "Nome mancante"}), 400
-            
-        nuovo_utente = Utente(nome=nome)
+        nome_completo = request.json.get('nome_completo')
+        if not nome_completo:
+            return jsonify({"error": "Nome completo mancante"}), 400
+
+        nuovo_utente = Utente(nome_completo=nome_completo)
         db.session.add(nuovo_utente)
         db.session.commit()
-        logger.info(f"Creato utente: {nome}")
-        return jsonify({"message": f"Utente {nome} creato"}), 201
-    
+        logger.info(f"Creato utente: {nome_completo}")
+        return jsonify({"message": f"Utente {nome_completo} creato"}), 201
+
     # GET
     utenti = Utente.query.all()
     logger.info(f"Recuperati {len(utenti)} utenti")
-    return jsonify([{"id": u.id, "nome": u.nome} for u in utenti])
+    return jsonify([{"id": u.id, "nome_completo": u.nome_completo} for u in utenti])
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
