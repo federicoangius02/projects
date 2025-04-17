@@ -53,16 +53,17 @@ def db_check():
 @app.route("/api/utenti", methods=["GET", "POST"])
 def utenti():
     if request.method == "POST":
-        nome_completo = request.json.get('nome_completo')
+        logger.info(f"Request data: {request.data}")
+        logger.info(f"Request json: {request.json}")
+        logger.info(f"Request headers: {dict(request.headers)}")
+        nome_completo = request.json.get('nome_completo') if request.json else None
         if not nome_completo:
             return jsonify({"error": "Nome completo mancante"}), 400
-
         nuovo_utente = Utente(nome_completo=nome_completo)
         db.session.add(nuovo_utente)
         db.session.commit()
         logger.info(f"Creato utente: {nome_completo}")
         return jsonify({"message": f"Utente {nome_completo} creato"}), 201
-
     # GET
     utenti = Utente.query.all()
     logger.info(f"Recuperati {len(utenti)} utenti")
