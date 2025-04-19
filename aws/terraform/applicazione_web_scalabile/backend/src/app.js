@@ -1,3 +1,6 @@
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
+const dynamodb = new AWS.DynamoDB();
 const express = require('express');
 const cors = require('cors');
 const winston = require('winston');
@@ -28,7 +31,7 @@ app.use(express.json());
 const requiredEnvVars = ['S3_BUCKET_NAME', 'DYNAMODB_TABLE_NAME', 'AWS_REGION'];
 requiredEnvVars.forEach(envVar => {
   if (!process.env[envVar]) {
-    logger.error(`Missing required environment variable: ${envVar}`);
+    logger.error(`Missing required environment variable: ${envVar}. Please set it in the ECS task definition or .env file.`);
     process.exit(1);
   }
 });
@@ -37,11 +40,15 @@ requiredEnvVars.forEach(envVar => {
 app.use('/', require('./routes'));
 
 // Health check endpoint
-app.get('/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'OK',
-    environment: process.env.NODE_ENV || 'development'
-  });
+app.get('/health', async (req, res) => {
+  try {
+    await s3.headBucket({ Bucket: process.env.S3_BUCKET_NAME }).promise();
+    await dynamodb.describeTable({ TableName: process.env.DYNAMODB_TABLE_NAME }).promise();
+    res.status(200).json({ status: 'OK' });
+  } catch (error) {
+    logger.error('Health check failed:', error.message);
+    res.status(500).json({ status: 'ERROR', service: error.service || 'unknown', error: error.message });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
