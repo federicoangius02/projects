@@ -58,8 +58,8 @@ resource "aws_ecs_task_definition" "app" {
       essential = true
       portMappings = [
         {
-          containerPort = 80
-          hostPort      = 80
+          containerPort = 3000
+          hostPort      = 3000
         }
       ],
       environment = [
@@ -103,7 +103,7 @@ resource "aws_ecs_service" "app" {
   load_balancer {
     target_group_arn = aws_lb_target_group.app_tg.arn
     container_name   = "my-app"
-    container_port   = 80
+    container_port   = 3000
   }
 
   depends_on = [aws_lb_listener.http]  # Assicurati che l'ALB sia pronto
