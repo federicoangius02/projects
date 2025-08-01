@@ -5,13 +5,11 @@ phases:
     runtime-versions:
       nodejs: 16
     commands:
-      - cd my_node_app
       - npm install
   build:
     commands:
-      - cd my_node_app
       - npm run build
 artifacts:
   files:
-    - 'my_node_app/**/*'
+    - '**/*'
   discard-paths: yes
