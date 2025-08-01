@@ -5,13 +5,11 @@ phases:
     runtime-versions:
       nodejs: 16
     commands:
-      - cd aws/terraform/cicd_pipeline_codepipeline_codebuild/my_node_app
       - npm install
   build:
     commands:
-      - cd aws/terraform/cicd_pipeline_codepipeline_codebuild/my_node_app
       - npm run build
 artifacts:
   files:
-    - 'aws/terraform/cicd_pipeline_codepipeline_codebuild/my_node_app/**/*'
+    - '**/*'
   discard-paths: yes

@@ -5,6 +5,7 @@ provider "aws" {
 # Bucket S3 per gli artefatti di build
 resource "aws_s3_bucket" "node_app_bucket" {
   bucket = "my-node-app-bucket-eu-south-1" # Nome univoco per il bucket
+  force_destroy = true # Permette di eliminare il bucket anche se contiene oggetti
 
   tags = {
     Name        = "My Node App Bucket"
