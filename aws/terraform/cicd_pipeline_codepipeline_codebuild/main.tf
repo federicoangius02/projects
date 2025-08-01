@@ -86,7 +86,7 @@ resource "aws_codebuild_project" "node_app_build" {
   service_role = aws_iam_role.codebuild_role.arn
 
   artifacts {
-    type = "NO_ARTIFACTS"
+    type = "CODEPIPELINE"
   }
 
   environment {
@@ -97,9 +97,8 @@ resource "aws_codebuild_project" "node_app_build" {
   }
 
   source {
-    type            = "GITHUB"
-    location        = "https://github.com/tuo-username/my-node-app.git" # Sostituisci con il tuo repository
-    git_clone_depth = 1
+    type      = "CODEPIPELINE"
+    buildspec = file("${path.module}/my_node_app/buildspec.yml")
   }
 
   source_version = "main" # Usa il branch principale
@@ -150,6 +149,13 @@ resource "aws_iam_policy" "codepipeline_policy" {
           "codebuild:BatchGetBuilds"
         ],
         Resource = aws_codebuild_project.node_app_build.arn
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "codestar-connections:UseConnection"
+        ],
+        Resource = aws_codestarconnections_connection.github.arn
       }
     ]
   })
@@ -159,6 +165,12 @@ resource "aws_iam_policy" "codepipeline_policy" {
 resource "aws_iam_role_policy_attachment" "codepipeline_policy_attachment" {
   role       = aws_iam_role.codepipeline_role.name
   policy_arn = aws_iam_policy.codepipeline_policy.arn
+}
+
+// filepath: cicd_pipeline_codepipeline_codebuild/main.tf
+resource "aws_codestarconnections_connection" "github" {
+  name          = "github-connection"
+  provider_type = "GitHub"
 }
 
 # CodePipeline
@@ -175,21 +187,19 @@ resource "aws_codepipeline" "node_app_pipeline" {
     name = "Source"
 
     action {
-      name             = "Source"
-      category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
-      version          = "1"
-      output_artifacts = ["source_output"]
+    name             = "Source"
+    category         = "Source"
+    owner            = "AWS"
+    provider         = "CodeStarSourceConnection"
+    version          = "1"
+    output_artifacts = ["source_output"]
 
-      configuration = {
-        Owner      = "tuo-username"
-        Repo       = "my-node-app"
-        Branch     = "main"
-        OAuthToken = var.github_token
-        Path       = "My Node App" # Estrai solo la cartella My Node App
-      }
+    configuration = {
+      ConnectionArn    = aws_codestarconnections_connection.github.arn
+      FullRepositoryId = "federicoangius02/projects"
+      BranchName       = "main"
     }
+  }
   }
 
   stage {
