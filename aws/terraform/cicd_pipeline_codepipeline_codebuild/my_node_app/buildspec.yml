@@ -5,10 +5,13 @@ phases:
     runtime-versions:
       nodejs: 16
     commands:
-      - (cd aws/terraform/cicd_pipeline_codepipeline_codebuild/my_node_app && npm install)
+      - cd aws/terraform/cicd_pipeline_codepipeline_codebuild/my_node_app
+      - npm install
+      - pwd  # Debug: mostra la directory corrente
   build:
     commands:
-      - (cd aws/terraform/cicd_pipeline_codepipeline_codebuild/my_node_app && npm run build)
+      - pwd  # Debug: mostra la directory corrente
+      - npm run build  # Non serve cd perché siamo già nella directory giusta
 artifacts:
   files:
     - 'aws/terraform/cicd_pipeline_codepipeline_codebuild/my_node_app/**/*'
